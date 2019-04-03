@@ -11,7 +11,8 @@ while($rec = fgetcsv($fh)){
 
 fclose($fh);
 
-var_dump($data);
+var_dump
+
 
 // open csv file for write
 $fh = fopen('Teams.csv','w');
