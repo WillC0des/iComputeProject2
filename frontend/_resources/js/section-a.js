@@ -63,7 +63,7 @@ function getOutput() {
   for (var i = 0; i < questions.length; i++) {
     output += '<div class="card">';
     output += '<div class="card-divider">';
-    output += 'Question ' + (i + 1);
+    output += '<h3>Question ' + (i + 1) + '</h3>';
     output += '<p>' + questions[i].question + '</p>';
     output += '</div>';
     output += '<div class="card-section">';
@@ -80,6 +80,7 @@ function getOutput() {
     var currentIndex = answers.length;
     var temporaryValue;
     var randomIndex;
+    var i = 1;
 
     while (currentIndex !== 0) { // While there remain elements to shuffle.
       // Pick a remaining element.
@@ -94,16 +95,18 @@ function getOutput() {
 
     output += '<div class="collection">';
     for (var j = 0; j < answers.length; j++) {
-      output += '<input type="radio" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j];
+      output += '<input type="radio" name="question-' + i + '" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
     }
     output += '</div>';
 
     output += '</div>';
     output += '</div>';
     output += '</div>';
+
+    ++i;
   }
 
-  output += '<button id="submission-button" class="btn-large btn-submit blue">Submit</button>';
+  output += '<button id="submission-button" class="button">Submit</button>';
 
   return output;
 }
@@ -129,7 +132,7 @@ $(document).ready(function() {
       var score = 0;
       var i = 0;
 
-      $("divider.collection").each(function() {
+      $("div.collection").each(function() {
         if ($(this).find("input.selected").text().substring(3) == questions[i].correctAnswer) {
           ++score;
         }
