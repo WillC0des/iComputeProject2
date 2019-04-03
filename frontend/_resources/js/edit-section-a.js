@@ -2,7 +2,7 @@
 * The path of the CSV file where the data is stored in.
 * @type {String}
 */
-var filePath = "_resources/csv/section-a.csv";
+var filePath = "/aswaenep/_resources/csv/section-a.csv";
 
 /**
 * The array where the data from the CSV file will be stored at.
@@ -12,18 +12,17 @@ var sectionAExams = [];
 
 var versions = [];
 var mainHeading = "";
+var headings = [];
+var year;
 
 function eventListener() {
   $("div#edit-section-a-section ul.collection li.collection-item").click(function(event) {
     $("div#edit-section-a-section div.offset-s2").html(getSectionAExamFormOutput($(event.target).text()));
 
     $("div#edit-section-a-section button#edit-section-a-form-save-button").click(function() {
-      submitSectionAForm("_resources/php/submit-section-a-csv.php");
+      submitSectionAForm("/rvictori/icompute/_resources/php/submit-section-a-csv.php");
     });
   });
-
-  console.log(mainHeading);
-  console.log("mainHeading");
 }
 
 function fetchSectionAExams(filePath, storage) {
@@ -35,14 +34,13 @@ function fetchSectionAExams(filePath, storage) {
     success: function(data) {
       versions = data.trim().split(";;");
       mainHeading = versions[0].trim();
-      var year;
 
       // For each Section A version.
       for (var i = 1; i < versions.length; i++) {
         var questions = [];
         var currentVersion = versions[i].trim().split("\n");
-        var year = currentVersion[0];
-        var headings = currentVersion[1].split(";");
+        year = currentVersion[0];
+        headings = currentVersion[1].split(";");
 
         for (var j = 2; j < currentVersion.length; j++) {
           var row = currentVersion[j].trim().split(";");
@@ -77,9 +75,13 @@ function fetchSectionAExams(filePath, storage) {
 }
 
 function getSectionAExamFormOutput(year) {
-  var selectedExam = sectionAExams.find(function(element) {
-    return element.year = year;
-  });
+  var selectedExam;
+  for (var i = 0; i < sectionAExams.length; i++) {
+    if (year.trim() == sectionAExams[i].year.trim()) {
+      selectedExam = sectionAExams[i];
+    }
+  }
+
   var questions = selectedExam.questions;
 
   var output = '<hr />';
@@ -131,9 +133,51 @@ function getSectionAExamsList() {
 
 function getCSVOutput() {
   var output = mainHeading + "\n";
-  output += ";;";
+  output += ";;\n";
 
-  console.log(sectionAExams);
+  for (var i = 0; i < sectionAExams.length; i++) {
+    output += sectionAExams[i].year.trim() + "\n";
+
+    for (var j = 0; j < headings.length; j++) {
+      output += headings[j].trim() + ";";
+    }
+
+    output += "\n";
+
+    if (year != sectionAExams[i].year) {
+      for (var j = 0; j < sectionAExams[i].questions.length; j++) {
+        output += sectionAExams[i].questions[j].question + ";";
+        output += sectionAExams[i].questions[j].correctAnswer + ";";
+        output += sectionAExams[i].questions[j].answer1 + ";";
+        output += sectionAExams[i].questions[j].answer2 + ";";
+        output += sectionAExams[i].questions[j].answer3;
+
+        output += "\n";
+      }
+    } else {
+      $("input").each(function() {
+        $(this).attr("value", $(this).val());
+      });
+
+      var k = 1;
+      $("div#edit-section-a-section fieldset").each(function() {
+        output += $(this).find("input#question-" + k).attr("value") + ";";
+        output += $(this).find("input#correct-answer-" + k).attr("value") + ";";
+        output += $(this).find("input#answer-1-" + k).attr("value") + ";";
+        output += $(this).find("input#answer-2-" + k).attr("value") + ";";
+        output += $(this).find("input#answer-3-" + k).attr("value") + ";";
+        output += "\n";
+
+        ++k;
+      });
+    }
+
+    if (i != sectionAExams.length - 1) {
+      output += ";;\n";
+    }
+  }
+
+  console.log(output);
 
   return output;
 }
@@ -143,7 +187,7 @@ function submitSectionAForm(filePath) {
 		url: filePath,
 		type: "POST",
     data: {
-      "content": "Hello World!"
+      "content": getCSVOutput()
     }
 	};
 
