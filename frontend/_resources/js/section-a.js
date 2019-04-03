@@ -61,13 +61,12 @@ function getOutput() {
   var output = "";
 
   for (var i = 0; i < questions.length; i++) {
-    output += '<div class="col s8 offset-s2">';
-    output += '<div class="card blue-green darken-1">';
-    output += '<div class="card-content white-text blue">';
-    output += '<span class="card-title">Question ' + (i + 1) + '</span>';
+    output += '<div class="card">';
+    output += '<div class="card-divider">';
+    output += 'Question ' + (i + 1);
     output += '<p>' + questions[i].question + '</p>';
     output += '</div>';
-    output += '<div class="card-action">';
+    output += '<div class="card-section">';
 
     var answers = [
       questions[i].correctAnswer,
@@ -93,11 +92,11 @@ function getOutput() {
       answers[randomIndex] = temporaryValue;
     }
 
-    output += '<ul class="collection answer">';
+    output += '<div class="collection">';
     for (var j = 0; j < answers.length; j++) {
-      output += '<li class="collection-item"><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + "</li>";
+      output += '<input type="radio" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j];
     }
-    output += '</ul>';
+    output += '</div>';
 
     output += '</div>';
     output += '</div>';
@@ -117,7 +116,7 @@ $(document).ready(function() {
   $("div#section-a-section button#start-button").click(function() {
     $("div#section-a-section").html(getOutput());
 
-    $("div#section-a-section ul.collection li.collection-item").click(function() {
+    $("div#section-a-section input.collection-item").click(function() {
       $(this).parent().children().each(function() {
         $(this).removeClass("selected");
       });
@@ -130,8 +129,8 @@ $(document).ready(function() {
       var score = 0;
       var i = 0;
 
-      $("ul.collection").each(function() {
-        if ($(this).find("li.selected").text().substring(3) == questions[i].correctAnswer) {
+      $("divider.collection").each(function() {
+        if ($(this).find("input.selected").text().substring(3) == questions[i].correctAnswer) {
           ++score;
         }
 
