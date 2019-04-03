@@ -1,155 +1,150 @@
 /**
-* The path of the CSV file where the data is stored in.
-* @type {String}
-*/
-var filePath = "/rvictori/icompute/_resources/csv/section-a.csv";
+ * Multiple Choice Script
+ * This script controls the multiple choice questions including fetching them
+ * and showing them.
+ */
 
 /**
-* The array where the data from the CSV file will be stored at.
-* @type {Array}
-*/
-var sectionAExams = [];
+ * The path of the CSV file where the data is stored in.
+ * @type {String}
+ */
+var filePath = "assets/csv/section-a/section-a-2019.csv";
 
-function eventListener() {
-  $("div#edit-section-a-section ul.collection li.collection-item").click(function(event) {
-    $("div#edit-section-a-section div.offset-s2").html(getSectionAExamFormOutput($(event.target).text()));
+/**
+ * The array where the data from the CSV file will be stored at.
+ * @type {Array}
+ */
+var questions = [];
 
-    $("div#edit-section-a-section button#edit-section-a-form-save-button").click(function() {
-      submitSectionAForm("/rvictori/icompute/_resources/php/submit-section-a-csv.php");
-    });
-  });
-}
-
-function fetchSectionAExams(filePath, storage) {
+/**
+ * Obtains the data from the CSV file given by the file link and stores it in
+ * the given attribute.
+ * @param {String} filePath The relative path of the CSV file.
+ * @param {Array} storage The storage where the data will be stored at.
+ */
+function fetchData(filePath, storage) {
   $.ajax({
     type: "GET",
     url: filePath,
     dataType: "text",
 
     success: function(data) {
-      var versions = data.trim().split(";;");
-      var mainHeading = versions[0].trim();
-      var year;
+      var rows = data.trim().split("\n");
+      var headings = rows[0].split(";");
 
-      // For each Section A version.
-      for (var i = 1; i < versions.length; i++) {
-        var questions = [];
-        var currentVersion = versions[i].trim().split("\n");
-        var year = currentVersion[0];
-        var headings = currentVersion[1].split(";");
+      for (var i = 1; i < rows.length; i++) {
+        var currentRow = rows[i].split(";");
+        var object = '{';
 
-        for (var j = 2; j < currentVersion.length; j++) {
-          var row = currentVersion[j].trim().split(";");
-          var object = '{';
+        for (var j = 0; j < headings.length; j++) {
+          object += '"' + headings[j].trim() + '": "' + currentRow[j].trim() + '"';
 
-          for (var k = 0; k < headings.length; k++) {
-            object += '"' + headings[k].trim() + '": "' + row[k].trim() + '"';
-
-            if (k != headings.length - 1) {
-              object += ', ';
-            }
+          if (j != headings.length - 1) {
+            object += ',';
           }
-
-          object += '}';
-
-          questions.push(JSON.parse(object));
         }
 
-        var currentSectionA = {
-          "year": year,
-          "questions": questions
-        }
-
-        storage.push(currentSectionA);
+        object += '}';
+        questions.push(JSON.parse(object));
       }
-
-      $("div#edit-section-a-section div.offset-s2").html(getSectionAExamsList());
-
-      console.log(storage);
-
-      eventListener();
     }
   });
 }
 
-function getSectionAExamFormOutput(year) {
-  var selectedExam = sectionAExams.find(function(element) {
-    return element.year = year;
-  });
-  var questions = selectedExam.questions;
-
-  var output = '<hr />';
-  output += '<h4>' + selectedExam.year + ' Section A Exam</h4>';
-  output += '<button id="section-a-form-back-button" class="btn blue">Back</button><br /><br />';
+/**
+ * Obtains the output of each card containing the question and the possible
+ * answers.
+ * @return {String} The output of each card containing the question and the
+ * possible answers.
+ */
+function getOutput() {
+  var output = "";
 
   for (var i = 0; i < questions.length; i++) {
-    output += '<fieldset>';
+    output += '<div class="col s8 offset-s2">';
+    output += '<div class="card blue-green darken-1">';
+    output += '<div class="card-content white-text blue">';
+    output += '<span class="card-title">Question ' + (i + 1) + '</span>';
+    output += '<p>' + questions[i].question + '</p>';
+    output += '</div>';
+    output += '<div class="card-action">';
 
-    output += '<h5>Question ' + (i + 1) + '</h5>';
+    var answers = [
+      questions[i].correctAnswer,
+      questions[i].answer1,
+      questions[i].answer2,
+      questions[i].answer3
+    ];
 
-    output += '<input type="text" id="question-' + (i + 1) + '" name="question-' + (i + 1) + '" value="' + questions[i].question + '" />';
-    output += '<label for="question-' + (i + 1) + '">Question</label>';
+    // Shuffle the answer.
+    // Source: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    var currentIndex = answers.length;
+    var temporaryValue;
+    var randomIndex;
 
-    output += '<input type="text" id="correct-answer-' + (i + 1) + '" name="correct-answer-' + (i + 1) + '" value="' + questions[i].correctAnswer + '" />';
-    output += '<label for="correct-answer-' + (i + 1) + '">Correct Answer</label>';
+    while (currentIndex !== 0) { // While there remain elements to shuffle.
+      // Pick a remaining element.
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      --currentIndex;
 
-    output += '<input type="text" id="answer-1-' + (i + 1) + '" name="answer-1-' + (i + 1) + '" value="' + questions[i].answer1 + '" />';
-    output += '<label for="answer-1-' + (i + 1) + '">Answer 1</label>';
-
-    output += '<input type="text" id="answer-2-' + (i + 1) + '" name="answer-2-' + (i + 1) + '" value="' + questions[i].answer2 + '" />';
-    output += '<label for="answer-2-' + (i + 1) + '">Answer 2</label>';
-
-    output += '<input type="text" id="answer-3-' + (i + 1) + '" name="answer-3-' + (i + 1) + '" value="' + questions[i].answer3 + '" />';
-    output += '<label for="answer-3-' + (i + 1) + '">Answer 3</label>';
-
-    output += '</fieldset><br />';
-
-  }
-
-  output += '<button id="edit-section-a-form-save-button" class="btn-large btn-submit blue">Save</button>';
-
-  return output;
-}
-
-function getSectionAExamsList() {
-  var output = "<ul class='collection'>";
-
-  for (var i = 0; i < sectionAExams.length; i++) {
-    output += '<li class="collection-item">';
-    output += sectionAExams[i].year;
-    output += '</li>'
-  }
-
-  output += '</ul>';
-
-  return output;
-}
-
-function submitSectionAForm(filePath) {
-  var options = {
-		url: filePath,
-		type: "POST",
-    data: {
-      "content": "Hello World!"
+      // Swap it with the current element.
+      temporaryValue = answers[currentIndex];
+      answers[currentIndex] = answers[randomIndex];
+      answers[randomIndex] = temporaryValue;
     }
-	};
 
-	console.log("Attempting to submit data...");
-	var jqxhr = $.ajax(options)
-	.done(function(data) { // Success.
-    console.log(data);
-    console.log("data?");
-    console.log("...data saved.");
-  })
-  .fail(function() {
-    console.log("...submission failed.");
-  })
-  .always(function() {
+    output += '<ul class="collection answer">';
+    for (var j = 0; j < answers.length; j++) {
+      output += '<li class="collection-item"><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + "</li>";
+    }
+    output += '</ul>';
 
-  });
+    output += '</div>';
+    output += '</div>';
+    output += '</div>';
+  }
+
+  output += '<button id="submission-button" class="btn-large btn-submit blue">Submit</button>';
+
+  return output;
 }
 
 // Init function.
 $(document).ready(function() {
-  fetchSectionAExams(filePath, sectionAExams);
+  fetchData(filePath, questions); // Obtains the data for the multiple choice questions.
+
+  // When the button is clicked, the multiple choice questions will be shown.
+  $("div#section-a-section button#start-button").click(function() {
+    $("div#section-a-section").html(getOutput());
+
+    $("div#section-a-section ul.collection li.collection-item").click(function() {
+      $(this).parent().children().each(function() {
+        $(this).removeClass("selected");
+      });
+
+      $(this).addClass("selected");
+    });
+
+    // When the submit button is clicked.
+    $("div#section-a-section button#submission-button").click(function() {
+      var score = 0;
+      var i = 0;
+
+      $("ul.collection").each(function() {
+        if ($(this).find("li.selected").text().substring(3) == questions[i].correctAnswer) {
+          ++score;
+        }
+
+        ++i;
+      });
+
+      var output = '<div class="col s8 offset-s2">';
+      output += '<div class="card">';
+      output += '<p>Your score: ' + score + ' / ' + questions.length + '</p>';
+      output += '</div>';
+      output += '</div>';
+
+      $("div#section-a-section").html(output);
+    });
+  });
 });
