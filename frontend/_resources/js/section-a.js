@@ -63,7 +63,7 @@ function getOutput() {
   for (var i = 0; i < questions.length; i++) {
     output += '<div class="card">';
     output += '<div class="card-divider">';
-    output += '<h3>Question ' + (i + 1) + '</h3>';
+    output += '<h3>Question ' + (i + 1) + '</h3><br />';
     output += '<p>' + questions[i].question + '</p>';
     output += '</div>';
     output += '<div class="card-section">';
@@ -94,7 +94,7 @@ function getOutput() {
 
     output += '<div class="collection">';
     for (var j = 0; j < answers.length; j++) {
-      output += '<input type="radio" name="question-' + i + '" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
+      output += '<input type="radio" name="question-' + i + '" class="collection-item" value="' + answers[j] + '" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
     }
     output += '</div>';
 
@@ -131,11 +131,11 @@ $(document).ready(function() {
 
       console.log("YOU DONT SUCK");
       $("div.collection").each(function() {
-        console.log($(this).find("input.selected").text().substring(3));
+        console.log($(this).find("input.selected").val());
         console.log(questions[i].correctAnswer);
         console.log("YOU SUCK");
 
-        if ($(this).find("input.selected").text().substring(3) == questions[i].correctAnswer) {
+        if ($(this).find("input.selected").val() == questions[i].correctAnswer) {
           ++score;
         }
 
