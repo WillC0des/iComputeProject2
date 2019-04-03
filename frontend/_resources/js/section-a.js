@@ -80,7 +80,6 @@ function getOutput() {
     var currentIndex = answers.length;
     var temporaryValue;
     var randomIndex;
-    var i = 1;
 
     while (currentIndex !== 0) { // While there remain elements to shuffle.
       // Pick a remaining element.
@@ -95,15 +94,13 @@ function getOutput() {
 
     output += '<div class="collection">';
     for (var j = 0; j < answers.length; j++) {
-      output += '<input type="radio" name="question-' + i + '" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
+      output += '<input type="radio" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
     }
     output += '</div>';
 
     output += '</div>';
     output += '</div>';
     output += '</div>';
-
-    ++i;
   }
 
   output += '<button id="submission-button" class="button">Submit</button>';
