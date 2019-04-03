@@ -10,6 +10,9 @@ var filePath = "/rvictori/icompute/_resources/csv/section-a.csv";
 */
 var sectionAExams = [];
 
+var versions = [];
+var mainHeading = "";
+
 function eventListener() {
   $("div#edit-section-a-section ul.collection li.collection-item").click(function(event) {
     $("div#edit-section-a-section div.offset-s2").html(getSectionAExamFormOutput($(event.target).text()));
@@ -18,6 +21,9 @@ function eventListener() {
       submitSectionAForm("/rvictori/icompute/_resources/php/submit-section-a-csv.php");
     });
   });
+
+  console.log(mainHeading);
+  console.log("mainHeading");
 }
 
 function fetchSectionAExams(filePath, storage) {
@@ -27,8 +33,8 @@ function fetchSectionAExams(filePath, storage) {
     dataType: "text",
 
     success: function(data) {
-      var versions = data.trim().split(";;");
-      var mainHeading = versions[0].trim();
+      versions = data.trim().split(";;");
+      mainHeading = versions[0].trim();
       var year;
 
       // For each Section A version.
@@ -64,8 +70,6 @@ function fetchSectionAExams(filePath, storage) {
       }
 
       $("div#edit-section-a-section div.offset-s2").html(getSectionAExamsList());
-
-      console.log(storage);
 
       eventListener();
     }
@@ -125,6 +129,13 @@ function getSectionAExamsList() {
   return output;
 }
 
+function getCSVOutput() {
+  var output = mainHeading + "\n";
+  output += ";;";
+
+  return output;
+}
+
 function submitSectionAForm(filePath) {
   var options = {
 		url: filePath,
@@ -137,8 +148,6 @@ function submitSectionAForm(filePath) {
 	console.log("Attempting to submit data...");
 	var jqxhr = $.ajax(options)
 	.done(function(data) { // Success.
-    console.log(data);
-    console.log("data?");
     console.log("...data saved.");
   })
   .fail(function() {
