@@ -7,7 +7,7 @@ if(!empty($username)){
         $host = "localhost";
         $dbusername = "root";
         $dbpassword = "";
-        $dbname = "Teams";
+        $dbname = "Users";
 
         $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
 
