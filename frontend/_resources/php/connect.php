@@ -4,29 +4,21 @@ $username = filter_input(INPUT_POST, 'username');
 $password = filter_input(INPUT_POST, 'password');
 if(!empty($username)){
     if(!empty($password)){
-        $host = "localhost";
-        $dbusername = "root";
-        $dbpassword = "";
-        $dbname = "Users";
-
-        $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname);
-
-        if(mysqil_connect_error()) {
-            die('Connect Error (' .mysqil_connect_errno() . ') ' 
-            .  mysqil_connect_error());
-        }
-        else {
-            $sql = "INSERT INTO account (username, password)
-            values ('$username', '$password')";
-            if($conn->query($sql)) {
-                echo "New record is inserted succesfully";
-            } 
-            else {
-                echo "Error: ". $sql . "<br>". $conn->error;
+        $host="localhost";
+        $user="root";
+        $pass="";
+        $db="Users";
+            $username=$_POST['username'];
+        $password=$_POST['password'];
+        $conn=mysqli_connect($host,$user,$pass,$db);
+            $query="SELECT * from users where username='$username' and password='$password'";
+            $result=mysqli_query($conn,$query);
+            if(mysqli_num_rows($result)==1)
+            {
+                session_start();
+                $_SESSION['Users']='true';
+                header('location: index.php');
             }
-            $conn->close();
-
-        }
     }
     else {
         echo "Password should not be empty.";
