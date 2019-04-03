@@ -2,7 +2,7 @@
 * The path of the CSV file where the data is stored in.
 * @type {String}
 */
-var filePath = "/rvictori/icompute/_resources/csv/section-a.csv";
+var filePath = "_resources/csv/section-a.csv";
 
 /**
 * The array where the data from the CSV file will be stored at.
@@ -18,7 +18,7 @@ function eventListener() {
     $("div#edit-section-a-section div.offset-s2").html(getSectionAExamFormOutput($(event.target).text()));
 
     $("div#edit-section-a-section button#edit-section-a-form-save-button").click(function() {
-      submitSectionAForm("/rvictori/icompute/_resources/php/submit-section-a-csv.php");
+      submitSectionAForm("_resources/php/submit-section-a-csv.php");
     });
   });
 
