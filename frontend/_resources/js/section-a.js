@@ -129,6 +129,7 @@ $(document).ready(function() {
       var score = 0;
       var i = 0;
 
+      console.log("YOU DONT SUCK");
       $("div.collection").each(function() {
         console.log($(this).find("input.selected").text().substring(3));
         console.log(questions[i].correctAnswer);
