@@ -14,6 +14,18 @@ if(!empty($username)){
         if(mysqil_connect_error()) {
             die('Connect Error (' .mysqil_connect_errno() . ') ' 
         }
+        else {
+            $sql = "INSERT INTO account (username, password)
+            values ('$username', '$password')";
+            if($conn->query($sql)) {
+                echo "New record is inserted succesfully";
+            }
+            else {
+                echo "Error: ". $sql . "<br>". $conn->error;
+            }
+            $conn->close();
+
+        }
     }
     else {
         echo "Password should not be empty.";
