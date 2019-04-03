@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="/aswaenep/_resources/css/foundation.css">
 </head>
 <body>
 
 <h2>Login Form</h2>
 
-<form action="php/connnect.php">
+<form action="php/connect.php">
 
 
   <div class="container">
@@ -17,14 +17,21 @@
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
-        
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
+
+    <button class="button">Team Login</button>
+    <button class="button">Grader Login</button>
+    <button class="button">Supervisor Login</button>
   </div>
 
 </form>
-
+<script src="https://code.jquery.com/jquery-3.3.1.js"> </script>
+		<script type="text/javascript" src="/aswaenep/_resources/js/vendor/foundation.min.js"> </script>
+		<script type="text/javascript" src="/aswaenep/_resources/js/vendor/what-input.js"> </script>
+		<script>
+			$(document).ready(function() {
+				$(document).foundation();
+			});
+		</script>
+		<script type="text/javascript" src="/aswaenep/_resources/js/section-a.js"> </script>
 </body>
 </html>
