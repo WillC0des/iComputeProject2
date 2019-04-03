@@ -86,7 +86,7 @@ function getSectionAExamFormOutput(year) {
 
   var output = '<hr />';
   output += '<h4>' + selectedExam.year + ' Section A Exam</h4>';
-  output += '<button id="section-a-form-back-button" class="btn blue">Back</button><br /><br />';
+  // output += '<button id="section-a-form-back-button" class="btn blue">Back</button><br /><br />';
 
   for (var i = 0; i < questions.length; i++) {
     output += '<fieldset>';
