@@ -10,6 +10,10 @@ if(!empty($username)){
         $dbname = "Teams";
 
         $conn = new mysqli ($host, $dbusername, $dbpassword, $dbname)
+
+        if(mysqil_connect_error()) {
+            die('Connect Error (' .mysqil_connect_errno() . ') ' 
+        }
     }
     else {
         echo "Password should not be empty.";
