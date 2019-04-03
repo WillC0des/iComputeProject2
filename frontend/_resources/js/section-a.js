@@ -8,7 +8,7 @@
  * The path of the CSV file where the data is stored in.
  * @type {String}
  */
-var filePath = "../csv/section-a.csv";
+var filePath = "../txt/section-a-2019.txt";
 
 /**
  * The array where the data from the CSV file will be stored at.
