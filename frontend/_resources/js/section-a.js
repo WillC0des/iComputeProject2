@@ -94,7 +94,7 @@ function getOutput() {
 
     output += '<div class="collection">';
     for (var j = 0; j < answers.length; j++) {
-      output += '<input type="radio" class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
+      output += '<input type="radio" name="question-' + i + 'class="collection-item" /><strong>' + String.fromCharCode(65 + j) + '</strong>: ' + answers[j] + '<br />';
     }
     output += '</div>';
 
