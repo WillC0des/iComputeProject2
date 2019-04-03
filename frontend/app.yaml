@@ -1,10 +1,11 @@
-runtime: php72
+runtime: php55
+api_version: 1
 
-env_variables:
-  # Replace USER, PASSWORD, DATABASE, and CONNECTION_NAME with the
-  # values obtained when configuring your Cloud SQL instance.
-  CLOUDSQL_USER: root
-  CLOUDSQL_PASSWORD: 1gjc1EjAyJ77ezkd
-  CLOUDSQL_DSN: "mysql:dbname=Test;unix_socket=/cloudsql/icomputeproject:us-east1:myinstance"
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
 
-  
+- url: /.*
+  script: index.html
+
+

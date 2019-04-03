@@ -25,7 +25,7 @@ $stmt->execute();
 
 // Insert a new row into the guestbook on POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $stmt = $db->prepare('INSERT INTO entries (guestName, content) VALUES (:name, :content)');
+    $stmt = $db->prepare('INSERT INTO Test (question, CorrectAnswer) VALUES (:name, :content)');
     $stmt->execute([
         ':name' => $_POST['name'],
         ':content' => $_POST['content'],
