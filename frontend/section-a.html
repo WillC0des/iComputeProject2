@@ -2,7 +2,7 @@
 <head>
 
   </head>
-  <link rel="stylesheet" type="text/css" href="/aswaenep/_resources/css/foundation.css">
+  <link rel="stylesheet" type="text/css" href="/aswaenep/_resources/css/foundation.min.css">
   <body>
     <!-- Navigation Bar -->
 
@@ -15,12 +15,18 @@
 
     <!-- Section A Section -->
     <div id="section-a-section" class="row #a2bded">
-      <div class="col s8 offset-s2">
-        <div class="card">
-          <!-- Start Button -->
-          <button class="button">Start</button>
-        </div>
-      </div>
+      <!-- Start Button -->
+      <button id="start-button" class="button">Start</button>
     </div>
-    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"> </script>
+		<script type="text/javascript" src="/aswaenep/_resources/js/vendor/foundation.min.js"> </script>
+		<script type="text/javascript" src="/aswaenep/_resources/js/vendor/what-input.js"> </script>
+		<script>
+			$(document).ready(function() {
+				$(document).foundation();
+			});
+		</script>
+    <script type="text/javascript" src="/aswaenep/_resources/js/section-a.js"> </script>
+  </body>
     </html>

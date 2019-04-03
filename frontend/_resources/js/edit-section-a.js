@@ -133,6 +133,8 @@ function getCSVOutput() {
   var output = mainHeading + "\n";
   output += ";;";
 
+  console.log(sectionAExams);
+
   return output;
 }
 
