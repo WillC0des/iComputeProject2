@@ -9,6 +9,8 @@ while($rec = fgetcsv($fh)){
     $data[] = $rec;
 }
 
+fclose($fh);
+
 var_dump($data);
 
 // open csv file for write
