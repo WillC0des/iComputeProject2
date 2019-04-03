@@ -130,6 +130,10 @@ $(document).ready(function() {
       var i = 0;
 
       $("div.collection").each(function() {
+        console.log($(this).find("input.selected").text().substring(3));
+        console.log(questions[i].correctAnswer);
+        console.log("YOU SUCK");
+
         if ($(this).find("input.selected").text().substring(3) == questions[i].correctAnswer) {
           ++score;
         }
