@@ -1,0 +1,6 @@
+id;question;correctAnswer;answer1;answer2;answer3
+1;What is the color of the sky? (Be careful with this question.);Clear;Blue;Green;Orange
+2;What is the square root of 4?;2, -2;2.0;2;-2
+3;I can change one letter to an odd number to make it even. What is this number?;11;1;13;9
+4;What is 1 + 1?;2;Two;A mathematical question that I shall not answer correctly.;Skip this question.
+5;How many feet are in a mile?;What is 52 feet?;52 feet;Fifty-two feet;Feet of fifty-two

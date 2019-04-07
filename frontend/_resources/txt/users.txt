@@ -1,0 +1,2 @@
+id;teamName;school;isCompetitor;isGrader;isSupervisor;username;password
+1;Nibble;Eastern Michigan University;true;true;true;nibble;password
