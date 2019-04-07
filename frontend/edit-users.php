@@ -115,15 +115,15 @@
                   <input type="text" :id="'password-' + index" :name="'password-' + index" v-model="user.password" />
 
                   <label :for="'is-competitor-' + index">
-                    <input type="checkbox" :id="'is-competitor-' + index" :name="'is-competitor-' + index" v-model="user.isCompetitor" /> Competitor {{ user.isCompetitor }}
+                    <input type="checkbox" :id="'is-competitor-' + index" :name="'is-competitor-' + index" v-model="user.isCompetitor" true-value="true" false-value="false" /> Competitor
                   </label>
 
                   <label :for="'is-grader-' + index">
-                    <input type="checkbox" :id="'is-grader-' + index" :name="'is-grader-' + index" v-model="user.isGrader" /> Grader {{ user.isGrader }}
+                    <input type="checkbox" :id="'is-grader-' + index" :name="'is-grader-' + index" v-model="user.isGrader" true-value="true" false-value="false" /> Grader
                   </label>
 
                   <label :for="'is-supervisor-' + index">
-                    <input type="checkbox" :id="'is-supervisor-' + index" :name="'is-supervisor-' + index" v-model="user.isSupervisor" /> Supervisor {{ user.isSupervisor }}
+                    <input type="checkbox" :id="'is-supervisor-' + index" :name="'is-supervisor-' + index" v-model="user.isSupervisor" true-value="true" false-value="false" /> Supervisor
                   </label>
 
                   <!-- Delete Button -->
