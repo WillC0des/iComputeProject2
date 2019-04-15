@@ -60,9 +60,9 @@ if (isset($_SESSION['id'])) {
   }
 }
 
-$db_host = "35.237.181.128";
+$db_host = "35.237.181.128:3306";
 $db_user = "root";
-$db_pass = "password";
+$db_pass = "iComputeProject";
 $db_name = "icomputeproject:us-east1:myinstance";
 
 // $con = new mysqli($db_host, $db_user, $db_pass, $db_name);
