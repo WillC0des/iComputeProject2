@@ -1,5 +1,7 @@
 runtime: php55
 api_version: 1
+application: iCompute2
+version: v1
 
 handlers:
 - url: /stylesheets
@@ -8,4 +10,8 @@ handlers:
 - url: /.*
   script: index.html
 
+env_variables:
+  MYSQL_DSN: icomputeproject:us-east1:myinstance
+  MYSQL_USER: root
+  MYSQL_PASSWORD: ''
 

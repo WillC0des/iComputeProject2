@@ -17,8 +17,12 @@ if(isset($postdata) && !empty($postdata))
   }
 
   // Sanitize.
-  $number = mysqli_real_escape_string($con, trim($request->number));
-  $amount = mysqli_real_escape_string($con, (int)$request->amount);
+  $question = mysqli_real_escape_string($con, $request->question);
+  $CorrectAnswer = mysqli_real_escape_string($con, $request->CorrectAnswer);
+  $Answer2 = mysqli_real_escape_string($con, $request->Answer2);
+  $Answer3 = mysqli_real_escape_string($con, $request->Answer3);
+  $Answer4 = mysqli_real_escape_string($con, $request->Answer4);
+
 
 
   // Create.

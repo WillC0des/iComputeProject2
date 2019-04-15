@@ -3,11 +3,11 @@
 
 if($_POST)
 {
-    $host="localhost";
-    $user="root";
-    $pass="";
+    $host= '35.237.181.128:3306';
+    $user= 'root';
+    $pass= 'iComputeProject';
     $db="Users";
-        $username=$_POST['username'];
+    $username=$_POST['username'];
     $password=$_POST['password'];
     $conn=mysqli_connect($host,$user,$pass,$db);
         $query="SELECT * from users where username='$username' and password='$password'";
