@@ -1,0 +1,7 @@
+id;name;school;isCompetitor;isGrader;isSupervisor;username;password
+1;Nibble;Eastern Michigan University;true;true;false;nibble;password
+2;Spider-Man is the Best;University of Michigan;true;false;false;spiderman;isthebest
+3;Filipino Eggs;Huron High School;true;true;true;eggboi;amazing
+4;Admin;N/A;false;true;true;admin;password
+5;Grader;N/A;false;true;false;grader;password
+6;Competitor;N/A;true;false;false;competitor;password
