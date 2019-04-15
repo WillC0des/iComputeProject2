@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 
+<?php
+session_start();
+
+if (!(isset($_SESSION['id']) && $_SESSION['is_supervisor'] == "true")) { // Redirect the user to the log in page.
+  header("Location: index.php");
+}
+?>
 <html>
   <head>
     <title>Edit Users | iCompute</title>
@@ -25,6 +32,10 @@
   </head>
 
   <body>
+    <?php
+    include("_resources/php/navigation.php");
+    ?>
+
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
         <div id="app" class="cell">
@@ -42,8 +53,8 @@
           <div class="reveal" id="create-modal" data-reveal>
             <h3>Create a User</h3>
 
-            <label for="new-user-team-name">Team Name</label>
-            <input type="text" id="new-user-team-name" name="new-user-team-name" v-model="newUser.teamName" />
+            <label for="new-user-team-name">Name</label>
+            <input type="text" id="new-user-team-name" name="new-user-team-name" v-model="newUser.name" />
 
             <label for="new-user-school">School</label>
             <input type="text" id="new-user-school" name="new-user-school" v-model="newUser.school" />
@@ -98,12 +109,12 @@
             <div class="cell small-12 medium-6 large-6" v-for="(user, index) in users">
               <div class="card">
                 <div class="card-divider" data-equalizer="question-edit" data-equalizer-watch="question-heading">
-                  <p>{{ user.teamName }}</p>
+                  <p>{{ user.name }}</p>
                 </div>
 
                 <div class="card-section" data-equalizer-watch="question-edit">
-                  <label :for="'team-name-' + index">Team Name</label>
-                  <input type="text" :id="'team-name-' + index" :name="'team-name-' + index" v-model="user.teamName" />
+                  <label :for="'team-name-' + index">Name</label>
+                  <input type="text" :id="'team-name-' + index" :name="'team-name-' + index" v-model="user.name" />
 
                   <label :for="'school-' + index">School</label>
                   <input type="text" :id="'school-' + index" :name="'school-' + index" v-model="user.school" />
@@ -183,7 +194,7 @@
         // New user
         newUser: {
           id: "",
-          teamName: "",
+          name: "",
           school: "",
           isCompetitor: false,
           isGrader: false,
@@ -216,7 +227,7 @@
           // Reset newUser.
           this.newUser = {
             id: "",
-            teamName: "",
+            name: "",
             school: "",
             isCompetitor: false,
             isGrader: false,

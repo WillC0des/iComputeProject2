@@ -1,0 +1,11 @@
+userId;questionId;answer
+6;3;11
+6;1;Clear
+6;5;What is 52 feet?
+6;2;2, -2
+6;4;Two
+2;3;11
+2;1;Clear
+2;5;What is 52 feet?
+2;2;2, -2
+2;4;2

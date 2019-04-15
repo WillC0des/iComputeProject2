@@ -2,9 +2,10 @@
 
 <?php
 session_start();
-$_SESSION['jr'] = "I like cheese and crackers.";
 
-// echo $_SESSION['jr'];
+if (!(isset($_SESSION['id']) && $_SESSION['is_supervisor'] == "true")) { // Redirect the user to the log in page.
+  header("Location: index.php");
+}
 ?>
 <html>
   <head>
@@ -31,6 +32,10 @@ $_SESSION['jr'] = "I like cheese and crackers.";
   </head>
 
   <body>
+    <?php
+    include("_resources/php/navigation.php");
+    ?>
+
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
         <div id="app" class="cell">
@@ -63,6 +68,7 @@ $_SESSION['jr'] = "I like cheese and crackers.";
             <label for="new-question-answer-1">Answer 3</label>
             <input type="text" id="new-question-answer-3" name="new-question-answer-3" v-model="newQuestion.answer3" />
 
+            <!-- Create Button -->
             <button class="button" v-on:click="addQuestion">Create</button>
 
             <!-- Close Button -->
@@ -208,7 +214,7 @@ $_SESSION['jr'] = "I like cheese and crackers.";
 
           // Reset newQuestion.
           this.newQuestion = {
-            id: "",
+            id: -1,
             question: "",
             correctAnswer: "",
             answer1: "",
@@ -250,7 +256,7 @@ $_SESSION['jr'] = "I like cheese and crackers.";
 
             }
           });
-        }
+        },
 
         setDeleteIndex: function(index) {
           this.deleteIndex = index;

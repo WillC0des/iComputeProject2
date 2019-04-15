@@ -1,5 +1,5 @@
 <?php
-$location = "/data/personal/htdocs/aswaenep/icompute/_resources/txt/section-a-questions.txt";
+$location = "/data/personal/htdocs/rvictori/icompute/_resources/txt/section-a-questions.txt";
 
 // Test if the file is ready for edits.
 // if (is_writable($location)) {
